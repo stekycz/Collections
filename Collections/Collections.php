@@ -8,11 +8,17 @@
 
 namespace stekycz\collections;
 
+/**
+ * General library class for common methods.
+ */
 class Collections {
 
 	/**
-	 * @param array|ArraySet $items
-	 * @return ArraySet
+	 * Transforms given array or set into ArraySet instance.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @return \stekycz\collections\ArraySet
+	 * @throws \stekycz\collections\InvalidArgumentException
 	 */
 	public static function toSet($items) {
 		static::checkValidType($items);
@@ -20,8 +26,10 @@ class Collections {
 	}
 
 	/**
-	 * @param array|ArraySet $items
-	 * @throws InvalidArgumentException
+	 * Checks if given items are in array or instance of ArraySet.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @throws \stekycz\collections\InvalidArgumentException
 	 */
 	public static function checkValidType($items) {
 		if (!static::isArrayType($items) && !static::isSetType($items)) {
@@ -32,6 +40,8 @@ class Collections {
 	}
 
 	/**
+	 * Checks if given items are in array.
+	 *
 	 * @param array $items
 	 * @return bool
 	 */
@@ -40,6 +50,8 @@ class Collections {
 	}
 
 	/**
+	 * Checks if given items are instance of ArraySet.
+	 *
 	 * @param ArraySet $set
 	 * @return bool
 	 */

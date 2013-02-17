@@ -15,15 +15,22 @@ use Serializable;
 use Traversable;
 use IteratorAggregate;
 
+/**
+ * Represents set of values.
+ */
 class ArraySet implements Countable, IteratorAggregate, Traversable, Serializable {
 
 	/**
+	 * Array of all values in set.
+	 *
 	 * @var array
 	 */
 	private $items = array();
 
 	/**
-	 * @param array|ArraySet $items
+	 * Creates new set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
 	 */
 	public function __construct($items = array()) {
 		$this->clear();
@@ -33,8 +40,10 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	// Java inspiration functions
 
 	/**
+	 * Adds given item into set.
+	 *
 	 * @param mixed $item
-	 * @return ArraySet
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function add($item) {
 		if (!$this->contains($item)) {
@@ -44,8 +53,10 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @param array|ArraySet $items
-	 * @return ArraySet
+	 * Adds all given items into set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function addAll($items) {
 		$items = Collections::toSet($items);
@@ -56,7 +67,9 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @return ArraySet
+	 * Cleans set.
+	 *
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function clear() {
 		$this->items = array();
@@ -64,6 +77,8 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Checks if given item is in set.
+	 *
 	 * @param mixed $item
 	 * @return bool
 	 */
@@ -72,12 +87,14 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @param array|ArraySet $items
+	 * Checks if all given items are in set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return bool
 	 */
 	public function containsAll($items) {
 		$items = Collections::toSet($items);
-		if ($this->count() != $items->count()) {
+		if ($this->count() < $items->count()) {
 			return false;
 		}
 		foreach ($items as $item) {
@@ -89,7 +106,9 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @param array|ArraySet $set
+	 * Checks if given set is equal to current set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $set
 	 * @return bool
 	 */
 	public function equals($set) {
@@ -98,6 +117,8 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Checks if current set is empty.
+	 *
 	 * @return bool
 	 */
 	public function isEmpty() {
@@ -105,6 +126,9 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Returns iterator over values in set.
+	 *
+	 * @deprecated
 	 * @return \Iterator
 	 */
 	public function iterator() {
@@ -112,8 +136,10 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Removes given item from set.
+	 *
 	 * @param mixed $item
-	 * @return ArraySet
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function remove($item) {
 		$index = array_search($item, $this->items);
@@ -124,8 +150,10 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @param array|ArraySet $items
-	 * @return ArraySet
+	 * Removes all given items from set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function removeAll($items) {
 		$items = Collections::toSet($items);
@@ -136,8 +164,10 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @param array|ArraySet $items
-	 * @return ArraySet
+	 * Retains all items in the set which are in given set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function retainAll($items) {
 		$items = Collections::toSet($items);
@@ -145,6 +175,9 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Returns size of set (count of items).
+	 *
+	 * @deprecated
 	 * @return int
 	 */
 	public function size() {
@@ -152,6 +185,8 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Returns items in set as array.
+	 *
 	 * @return array
 	 */
 	public function toArray() {
@@ -162,6 +197,8 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	// PHP functions
 
 	/**
+	 * Returns size of set (count of items).
+	 *
 	 * @return int
 	 */
 	public function count() {
@@ -169,25 +206,40 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
+	 * Returns iterator over values in set.
+	 *
 	 * @return \Iterator
 	 */
 	public function getIterator() {
 		return new IteratorIterator($this->items);
 	}
 
+	/**
+	 * Should return the string representation of the object.
+	 *
+	 * @return string
+	 */
 	public function serialize() {
-		throw new LogicException("Not implemented yet.");
+		return serialize($this->items);
 	}
 
+	/**
+	 * Called during unserialization of the object.
+	 *
+	 * @param string $serialized
+	 * @return void
+	 */
 	public function unserialize($serialized) {
-		throw new LogicException("Not implemented yet.");
+		$this->items = unserialize($serialized);
 	}
 
 	// Own functions
 
 	/**
-	 * @param array|ArraySet $items
-	 * @return ArraySet
+	 * Returns intersection of given set and current set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function intersect($items) {
 		$items = Collections::toSet($items);
@@ -195,8 +247,10 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * @param array|ArraySet $items
-	 * @return ArraySet
+	 * Returns result of XOR function on given set and current set.
+	 *
+	 * @param array|\stekycz\collections\ArraySet $items
+	 * @return \stekycz\collections\ArraySet
 	 */
 	public function exclusiveOr($items) {
 		$items = Collections::toSet($items);
