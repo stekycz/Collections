@@ -1,0 +1,19 @@
+{
+    "name": "stekycz/collections",
+    "description": "Basic collections for PHP using arrays",
+	"keywords": ["collection", "array"],
+	"version": "0.1.0",
+	"license": "MIT",
+    "authors": [
+        {
+            "name": "Martin Štekl",
+            "email": "martin.stekl@gmail.com"
+        }
+    ],
+	"autoload": {
+		"classmap": ["Collections/"]
+	},
+    "require": {
+	    "php" : ">=5.3.0"
+    }
+}
