@@ -111,10 +111,6 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	public function checksIfContainsAllGivenItems($expected, $items) {
 		$set = new ArraySet(array('test 1', 'test 2', ));
 		$this->assertEquals($expected, $set->containsAll($items));
-
-		$this->assertFalse($set->contains(array('test 3', )));
-		$this->assertFalse($set->contains(array('test 1', 'test 2', 'test 3', )));
-		$this->assertTrue($set->contains(array()));
 	}
 
 	public function providesDataForContainsAllChecking() {
