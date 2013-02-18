@@ -10,10 +10,9 @@ namespace stekycz\collections;
 
 use Countable;
 use Serializable;
-use Traversable;
 use IteratorAggregate;
 
-interface ICollection extends Countable, IteratorAggregate, Traversable, Serializable {
+interface ICollection extends Countable, IteratorAggregate, Serializable {
 
 	// Java inspiration functions
 
