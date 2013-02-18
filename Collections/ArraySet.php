@@ -86,7 +86,8 @@ class ArraySet implements ICollection {
 	 */
 	public function containsAll($items) {
 		$items = Collections::toSet($items);
-		return count(array_diff($items->items, $this->items)) <= 0;
+		$difference = array_diff($items->items, $this->items);
+		return empty($difference);
 	}
 
 	/**
