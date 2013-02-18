@@ -9,6 +9,7 @@
 namespace stekycz\collections\tests;
 
 use PHPUnit_Framework_TestCase;
+use stdClass;
 use stekycz\collections\ArraySet;
 
 /**
@@ -28,7 +29,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function createsSetFromArray() {
-		$set = new ArraySet(array('test 1', 'test 2', 'test 1', ));
+		$set = new ArraySet(array('test 1', 'test 2', 'test 1',));
 		$this->assertFalse($set->isEmpty());
 		$this->assertEquals(2, $set->count());
 	}
@@ -60,7 +61,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function returnsIterator() {
-		$set = new ArraySet(array('test 1', 'test 2', 'test 1', ));
+		$set = new ArraySet(array('test 1', 'test 2', 'test 1',));
 		$this->assertInstanceOf('\Iterator', $set->getIterator());
 	}
 
@@ -68,7 +69,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function isAbleToClearItself() {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 		$this->assertFalse($set->isEmpty());
 		$set->clear();
 		$this->assertTrue($set->isEmpty());
@@ -89,7 +90,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	public function providesDataForArrayReturnChecking() {
 		return array(
 			array(array()),
-			array(array('test 1', 'test 2', )),
+			array(array('test 1', 'test 2',)),
 		);
 	}
 
@@ -98,7 +99,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @dataProvider providesDataForContainsChecking
 	 */
 	public function checksIfContainsGivenItem($expected, $item) {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 		$this->assertEquals($expected, $set->contains($item));
 	}
 
@@ -116,17 +117,17 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @dataProvider providesDataForContainsAllChecking
 	 */
 	public function checksIfContainsAllGivenItems($expected, $items) {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 		$this->assertEquals($expected, $set->containsAll($items));
 	}
 
 	public function providesDataForContainsAllChecking() {
 		return array(
-			array(true, array('test 1', )),
-			array(true, array('test 2', )),
-			array(true, array('test 1', 'test 2', )),
-			array(false, array('test 3', )),
-			array(false, array('test 1', 'test 2', 'test 3', )),
+			array(true, array('test 1',)),
+			array(true, array('test 2',)),
+			array(true, array('test 1', 'test 2',)),
+			array(false, array('test 3',)),
+			array(false, array('test 1', 'test 2', 'test 3',)),
 			array(true, array()),
 		);
 	}
@@ -136,18 +137,18 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @dataProvider providesDataForEqualsChecking
 	 */
 	public function comparesTwoSetsToBeEqual($expected, $items) {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 		$this->assertEquals($expected, $set->equals($items));
 	}
 
 	public function providesDataForEqualsChecking() {
 		return array(
-			array(true, array('test 1', 'test 2', )),
+			array(true, array('test 1', 'test 2',)),
 			array(false, array()),
-			array(false, array('test 1', )),
-			array(false, array('test 2', )),
-			array(false, array('test 3', )),
-			array(false, array('test 1', 'test 2', 'test 3', )),
+			array(false, array('test 1',)),
+			array(false, array('test 2',)),
+			array(false, array('test 3',)),
+			array(false, array('test 1', 'test 2', 'test 3',)),
 		);
 	}
 
@@ -155,7 +156,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function removesOneItem() {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 		$this->assertEquals(2, $set->count());
 		$set->remove('test 1');
 		$this->assertEquals(1, $set->count());
@@ -178,8 +179,8 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	public function providesDataForAddingAllItems() {
 		return array(
 			array(array()),
-			array(array('test 1', 'test 2', )),
-			array(array('test 1', 'test 2', 'test 1', 'test 2', )),
+			array(array('test 1', 'test 2',)),
+			array(array('test 1', 'test 2', 'test 1', 'test 2',)),
 		);
 	}
 
@@ -188,17 +189,17 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @dataProvider providesDataForRemovingAllItems
 	 */
 	public function removesAllGivenItems($expectedRetained, $items) {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 		$set->removeAll($items);
 		$this->assertTrue($set->containsAll($expectedRetained));
 	}
 
 	public function providesDataForRemovingAllItems() {
 		return array(
-			array(array('test 1', 'test 2', ), array()),
-			array(array(), array('test 1', 'test 2', )),
-			array(array(), array('test 1', 'test 2', 'test 1', 'test 2', )),
-			array(array('test 1', ), array('test 2', 'test 3', )),
+			array(array('test 1', 'test 2',), array()),
+			array(array(), array('test 1', 'test 2',)),
+			array(array(), array('test 1', 'test 2', 'test 1', 'test 2',)),
+			array(array('test 1',), array('test 2', 'test 3',)),
 		);
 	}
 
@@ -206,7 +207,7 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function isSerializable() {
-		$set = new ArraySet(array('test 1', 'test 2', ));
+		$set = new ArraySet(array('test 1', 'test 2',));
 
 		$serialized = serialize($set);
 		$this->assertTrue(is_string($serialized));
@@ -227,10 +228,10 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 
 	public function providesDataForIntersection() {
 		return array(
-			array(array(), array('test 1', ), array('test 2', )),
+			array(array(), array('test 1',), array('test 2',)),
 			array(array(), array(), array()),
-			array(array('test 2', ), array('test 1', 'test 2', ), array('test 2', )),
-			array(array('test 1', ), array('test 1', ), array('test 1', 'test 2', )),
+			array(array('test 2',), array('test 1', 'test 2',), array('test 2',)),
+			array(array('test 1',), array('test 1',), array('test 1', 'test 2',)),
 		);
 	}
 
@@ -246,10 +247,10 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 
 	public function providesDataForExclusiveOr() {
 		return array(
-			array(array('test 1', 'test 2', ), array('test 1', ), array('test 2', )),
+			array(array('test 1', 'test 2',), array('test 1',), array('test 2',)),
 			array(array(), array(), array()),
-			array(array('test 1', ), array('test 1', 'test 2', ), array('test 2', )),
-			array(array('test 2', ), array('test 1', ), array('test 1', 'test 2', )),
+			array(array('test 1',), array('test 1', 'test 2',), array('test 2',)),
+			array(array('test 2',), array('test 1',), array('test 1', 'test 2',)),
 		);
 	}
 
@@ -264,11 +265,101 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 
 	public function providesDataForRetainingAllItems() {
 		return array(
-			array(array('test 1', ), array('test 1', ), array('test 1', 'test 2', )),
-			array(array(), array(), array('test 1', 'test 2', )),
+			array(array('test 1',), array('test 1',), array('test 1', 'test 2',)),
+			array(array(), array(), array('test 1', 'test 2',)),
 			array(array(), array(), array()),
-			array(array('test 2', ), array('test 2', ), array('test 1', 'test 2', )),
-			array(array(), array('test 3', ), array('test 1', 'test 2', )),
+			array(array('test 2',), array('test 2',), array('test 1', 'test 2',)),
+			array(array(), array('test 3',), array('test 1', 'test 2',)),
+		);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToConstructor($items) {
+		$set = new ArraySet($items);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToAddAll($items) {
+		$set = new ArraySet();
+		$set->addAll($items);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToContainsAll($items) {
+		$set = new ArraySet();
+		$set->containsAll($items);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 */
+	public function returnsFalseWhenInvalidArgumentGivenToEquals($items) {
+		$set = new ArraySet();
+		$this->assertFalse($set->equals($items));
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToRemoveAll($items) {
+		$set = new ArraySet();
+		$set->removeAll($items);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToRetainAll($items) {
+		$set = new ArraySet();
+		$set->retainAll($items);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToIntersect($items) {
+		$set = new ArraySet();
+		$set->intersect($items);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider providesWrongData
+	 * @expectedException \stekycz\collections\InvalidArgumentException
+	 */
+	public function throwsExceptionWhenInvalidArgumentGivenToExclusiveOr($items) {
+		$set = new ArraySet();
+		$set->exclusiveOr($items);
+	}
+
+	public function providesWrongData() {
+		return array(
+			array(null),
+			array(true),
+			array(false),
+			array(1),
+			array(2.3),
+			array("string"),
+			array(new stdClass()),
 		);
 	}
 
