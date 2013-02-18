@@ -17,52 +17,65 @@ use stekycz\collections\ArraySet;
 class ArraySet_Test extends PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var \stekycz\collections\ArraySet
-	 */
-	private $set;
-
-	protected function setUp() {
-		parent::setUp();
-		$this->set = new ArraySet();
-	}
-
-	/**
 	 * @test
 	 */
 	public function createsEmptySet() {
-		$this->assertTrue($this->set->isEmpty());
+		$set = new ArraySet();
+		$this->assertTrue($set->isEmpty());
 	}
 
 	/**
 	 * @test
 	 */
 	public function addsOneItem() {
-		$this->set->add('test');
-		$this->assertFalse($this->set->isEmpty());
-		$this->assertEquals($this->set->count(), 1);
+		$set = new ArraySet();
+		$set->add('test');
+		$this->assertFalse($set->isEmpty());
+		$this->assertEquals(1, $set->count());
 	}
 
 	/**
 	 * @test
 	 */
 	public function addingOneItemAsDuplicateDoesNotChangeSet() {
-		$this->set->add('test');
-		$this->assertFalse($this->set->isEmpty());
-		$this->assertEquals($this->set->count(), 1);
-		$this->set->add('test');
-		$this->assertFalse($this->set->isEmpty());
-		$this->assertEquals($this->set->count(), 1);
+		$set = new ArraySet();
+		$set->add('test');
+		$this->assertFalse($set->isEmpty());
+		$this->assertEquals(1, $set->count());
+		$set->add('test');
+		$this->assertFalse($set->isEmpty());
+		$this->assertEquals(1, $set->count());
+	}
+
+	/**
+	 * @test
+	 */
+	public function createsSetFromArray() {
+		$set = new ArraySet(array('test 1', 'test 2', 'test 1', ));
+		$this->assertFalse($set->isEmpty());
+		$this->assertEquals(2, $set->count());
 	}
 
 	/**
 	 * @test
 	 */
 	public function isAbleToClearItself() {
-		$this->set->add('test 1');
-		$this->set->add('test 2');
-		$this->assertFalse($this->set->isEmpty());
-		$this->set->clear();
-		$this->assertTrue($this->set->isEmpty());
+		$set = new ArraySet(array('test 1', 'test 2', ));
+		$this->assertFalse($set->isEmpty());
+		$set->clear();
+		$this->assertTrue($set->isEmpty());
+	}
+
+	/**
+	 * @test
+	 */
+	public function isAbleToReturnItemsAsArray() {
+		$items = array('test 1', 'test 2', );
+		$set = new ArraySet($items);
+		$this->assertFalse($set->isEmpty());
+		$array = $set->toArray();
+		$this->assertTrue(is_array($array));
+		$this->assertEquals($items, $array);
 	}
 
 }
