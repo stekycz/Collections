@@ -54,7 +54,7 @@ class Collections {
 	/**
 	 * Checks if given collection is instance of ICollection.
 	 *
-	 * @param ICollection $collection
+	 * @param \stekycz\collections\ICollection $collection
 	 * @return bool
 	 */
 	private static function isCollection($collection) {
@@ -64,7 +64,7 @@ class Collections {
 	/**
 	 * Checks if given set is instance of ArraySet.
 	 *
-	 * @param ArraySet $set
+	 * @param \stekycz\collections\ArraySet $set
 	 * @return bool
 	 */
 	private static function isSetType($set) {
