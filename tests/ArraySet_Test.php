@@ -253,4 +253,23 @@ class ArraySet_Test extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 * @dataProvider providesDataForRetainingAllItems
+	 */
+	public function isAbleToRetainAllGivenItems($expected, $retainItems, $items) {
+		$set = new ArraySet($items);
+		$this->assertTrue($set->retainAll($retainItems)->equals($expected));
+	}
+
+	public function providesDataForRetainingAllItems() {
+		return array(
+			array(array('test 1', ), array('test 1', ), array('test 1', 'test 2', )),
+			array(array(), array(), array('test 1', 'test 2', )),
+			array(array(), array(), array()),
+			array(array('test 2', ), array('test 2', ), array('test 1', 'test 2', )),
+			array(array(), array('test 3', ), array('test 1', 'test 2', )),
+		);
+	}
+
 }
