@@ -97,7 +97,11 @@ class ArraySet implements ICollection {
 	 * @return bool
 	 */
 	public function equals($collection) {
-		$collection = Collections::toSet($collection);
+		try {
+			$collection = Collections::toSet($collection);
+		} catch (InvalidArgumentException $e) {
+			return false;
+		}
 		return $this->containsAll($collection) && $collection->containsAll($this);
 	}
 
