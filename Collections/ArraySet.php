@@ -8,7 +8,7 @@
 
 namespace stekycz\collections;
 
-use IteratorIterator;
+use ArrayIterator;
 
 /**
  * Represents set of values.
@@ -182,7 +182,7 @@ class ArraySet implements ICollection {
 	 * @return \Iterator
 	 */
 	public function getIterator() {
-		return new IteratorIterator($this->items);
+		return new ArrayIterator($this->items);
 	}
 
 	/**
