@@ -11,19 +11,19 @@ namespace stekycz\collections;
 use ArrayIterator;
 
 /**
- * Represents set of values.
+ * Represents collection of values.
  */
 class ArraySet implements ICollection {
 
 	/**
-	 * Array of all values in set.
+	 * Array of all values in collection.
 	 *
 	 * @var array
 	 */
 	private $items = array();
 
 	/**
-	 * Creates new set.
+	 * Creates new collection.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 */
@@ -33,7 +33,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Adds given item into set.
+	 * Adds given item into collection.
 	 *
 	 * @param mixed $item
 	 * @return \stekycz\collections\ArraySet
@@ -46,7 +46,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Adds all given items into set.
+	 * Adds all given items into collection.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
@@ -59,7 +59,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Cleans set.
+	 * Cleans collection.
 	 *
 	 * @return \stekycz\collections\ArraySet
 	 */
@@ -69,7 +69,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Checks if given item is in set.
+	 * Checks if given item is in collection.
 	 *
 	 * @param mixed $item
 	 * @return bool
@@ -79,7 +79,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Checks if all given items are in set.
+	 * Checks if all given items are in collection.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return bool
@@ -91,18 +91,18 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Checks if given set is equal to current set.
+	 * Checks if given collection is equal to current collection.
 	 *
-	 * @param array|\stekycz\collections\ArraySet $set
+	 * @param array|\stekycz\collections\ArraySet $collection
 	 * @return bool
 	 */
-	public function equals($set) {
-		$set = Collections::toSet($set);
-		return $this->containsAll($set) && $set->containsAll($this);
+	public function equals($collection) {
+		$collection = Collections::toSet($collection);
+		return $this->containsAll($collection) && $collection->containsAll($this);
 	}
 
 	/**
-	 * Checks if set is empty.
+	 * Checks if collection is empty.
 	 *
 	 * @return bool
 	 */
@@ -111,7 +111,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Removes given item from set.
+	 * Removes given item from collection.
 	 *
 	 * @param mixed $item
 	 * @return \stekycz\collections\ArraySet
@@ -125,7 +125,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Removes all given items from set.
+	 * Removes all given items from collection.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
@@ -137,7 +137,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Retains all items in the set which are in given set.
+	 * Retains all items in the collection which are in given collection.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
@@ -148,7 +148,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Returns items in set as array.
+	 * Returns items in collection as array.
 	 *
 	 * @return array
 	 */
@@ -158,7 +158,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Returns count of items in set.
+	 * Returns count of items in collection.
 	 *
 	 * @return int
 	 */
@@ -167,7 +167,7 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Returns iterator over items in set.
+	 * Returns iterator over items in collection.
 	 *
 	 * @return \Iterator
 	 */
@@ -197,7 +197,8 @@ class ArraySet implements ICollection {
 	// Own functions
 
 	/**
-	 * Returns intersection of given set and current set.
+	 * Returns intersection of given collection and current collection.
+	 * Returned object is new.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
@@ -208,7 +209,8 @@ class ArraySet implements ICollection {
 	}
 
 	/**
-	 * Returns result of XOR function on given set and current set.
+	 * Returns result of XOR function on given collection and current collection.
+	 * Returned object is new.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet

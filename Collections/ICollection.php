@@ -58,10 +58,10 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	/**
 	 * Checks if given collection is equal to current collection.
 	 *
-	 * @param array|\stekycz\collections\ICollection $set
+	 * @param array|\stekycz\collections\ICollection $collection
 	 * @return bool
 	 */
-	public function equals($set);
+	public function equals($collection);
 
 	/**
 	 * Checks if collection is empty.
