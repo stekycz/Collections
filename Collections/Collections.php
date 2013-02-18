@@ -31,7 +31,7 @@ class Collections {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @throws \stekycz\collections\InvalidArgumentException
 	 */
-	public static function checkValidType($items) {
+	private static function checkValidType($items) {
 		if (!static::isArrayType($items) && !static::isSetType($items)) {
 			$type = gettype($items);
 			$type = $type == 'object' ? get_class($items) : $type;
@@ -45,7 +45,7 @@ class Collections {
 	 * @param array $items
 	 * @return bool
 	 */
-	public static function isArrayType($items) {
+	private static function isArrayType($items) {
 		return is_array($items);
 	}
 
@@ -55,7 +55,7 @@ class Collections {
 	 * @param ArraySet $set
 	 * @return bool
 	 */
-	public static function isSetType($set) {
+	private static function isSetType($set) {
 		return ($set instanceof ArraySet);
 	}
 
