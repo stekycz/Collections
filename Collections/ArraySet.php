@@ -52,7 +52,7 @@ class ArraySet implements ICollection {
 	 * @return \stekycz\collections\ArraySet
 	 */
 	public function addAll($items) {
-		$items = Collections::toSet($items);
+		Collections::checkValidType($items);
 		foreach ($items as $item) {
 			$this->add($item);
 		}
