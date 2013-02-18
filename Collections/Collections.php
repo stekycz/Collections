@@ -32,10 +32,12 @@ class Collections {
 	 * @throws \stekycz\collections\InvalidArgumentException
 	 */
 	private static function checkValidType($items) {
-		if (!static::isArrayType($items) && !static::isSetType($items)) {
+		if (!static::isArrayType($items) && !static::isCollection($items)) {
 			$type = gettype($items);
 			$type = $type == 'object' ? get_class($items) : $type;
-			throw new InvalidArgumentException("Items must be array or instance of ArraySet. Type " . $type . " was given.");
+			throw new InvalidArgumentException(
+				"Items must be array or instance of ICollection. Type '" . $type . "' was given."
+			);
 		}
 	}
 
@@ -50,7 +52,17 @@ class Collections {
 	}
 
 	/**
-	 * Checks if given items are instance of ArraySet.
+	 * Checks if given collection is instance of ICollection.
+	 *
+	 * @param ICollection $collection
+	 * @return bool
+	 */
+	private static function isCollection($collection) {
+		return ($collection instanceof ICollection);
+	}
+
+	/**
+	 * Checks if given set is instance of ArraySet.
 	 *
 	 * @param ArraySet $set
 	 * @return bool

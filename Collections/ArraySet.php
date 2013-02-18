@@ -8,17 +8,12 @@
 
 namespace stekycz\collections;
 
-use Countable;
 use IteratorIterator;
-use LogicException;
-use Serializable;
-use Traversable;
-use IteratorAggregate;
 
 /**
  * Represents set of values.
  */
-class ArraySet implements Countable, IteratorAggregate, Traversable, Serializable {
+class ArraySet implements ICollection {
 
 	/**
 	 * Array of all values in set.
@@ -36,8 +31,6 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 		$this->clear();
 		$this->addAll($items);
 	}
-
-	// Java inspiration functions
 
 	/**
 	 * Adds given item into set.
@@ -117,22 +110,12 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * Checks if current set is empty.
+	 * Checks if set is empty.
 	 *
 	 * @return bool
 	 */
 	public function isEmpty() {
-		return $this->size() <= 0;
-	}
-
-	/**
-	 * Returns iterator over values in set.
-	 *
-	 * @deprecated
-	 * @return \Iterator
-	 */
-	public function iterator() {
-		return $this->getIterator();
+		return empty($this->items);
 	}
 
 	/**
@@ -175,16 +158,6 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * Returns size of set (count of items).
-	 *
-	 * @deprecated
-	 * @return int
-	 */
-	public function size() {
-		return $this->count();
-	}
-
-	/**
 	 * Returns items in set as array.
 	 *
 	 * @return array
@@ -194,10 +167,8 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 		return $array;
 	}
 
-	// PHP functions
-
 	/**
-	 * Returns size of set (count of items).
+	 * Returns count of items in set.
 	 *
 	 * @return int
 	 */
@@ -206,7 +177,7 @@ class ArraySet implements Countable, IteratorAggregate, Traversable, Serializabl
 	}
 
 	/**
-	 * Returns iterator over values in set.
+	 * Returns iterator over items in set.
 	 *
 	 * @return \Iterator
 	 */
