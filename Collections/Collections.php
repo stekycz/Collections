@@ -47,7 +47,7 @@ class Collections {
 	 * @param array $items
 	 * @return bool
 	 */
-	private static function isArrayType($items) {
+	public static function isArrayType($items) {
 		return is_array($items);
 	}
 

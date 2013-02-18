@@ -53,9 +53,8 @@ class ArraySet implements ICollection {
 	 */
 	public function addAll($items) {
 		Collections::checkValidType($items);
-		foreach ($items as $item) {
-			$this->add($item);
-		}
+		$items = Collections::isArrayType($items) ? $items : $items->items;
+		$this->items = array_unique(array_merge($this->items, $items));
 		return $this;
 	}
 
@@ -87,15 +86,7 @@ class ArraySet implements ICollection {
 	 */
 	public function containsAll($items) {
 		$items = Collections::toSet($items);
-		if ($this->count() < $items->count()) {
-			return false;
-		}
-		foreach ($items as $item) {
-			if (!$this->contains($item)) {
-				return false;
-			}
-		}
-		return true;
+		return count(array_diff($items->items, $this->items)) <= 0;
 	}
 
 	/**
@@ -140,9 +131,7 @@ class ArraySet implements ICollection {
 	 */
 	public function removeAll($items) {
 		$items = Collections::toSet($items);
-		foreach ($items as $item) {
-			$this->remove($item);
-		}
+		$this->items = array_diff($this->items, $items->items);
 		return $this;
 	}
 
@@ -153,7 +142,7 @@ class ArraySet implements ICollection {
 	 * @return \stekycz\collections\ArraySet
 	 */
 	public function retainAll($items) {
-		$items = Collections::toSet($items);
+		Collections::checkValidType($items);
 		return $this->removeAll($this->exclusiveOr($items));
 	}
 
