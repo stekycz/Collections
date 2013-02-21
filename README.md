@@ -5,7 +5,7 @@
 Basic collections for PHP using arrays. It contains only `Set` now however I want to add some more collection types
 (for example `Map`, `List`, etc.). All suggestions are welcome.
 
-It requires **PHP >= 5.3.0.**
+It requires **PHP >= 5.3.0**.
 
 Basic methods are inspirated by [Java collections](http://docs.oracle.com/javase/6/docs/api/java/util/Collections.html)
 but some methods are not used (for example `size()`, `iterator()`, etc.) because there is some equivalent in PHP (for example
