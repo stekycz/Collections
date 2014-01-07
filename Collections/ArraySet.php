@@ -198,7 +198,7 @@ class ArraySet implements ICollection
 	 */
 	public function toArray()
 	{
-		$array = $this->items;
+		$array = array_slice($this->items, 0);
 
 		return $array;
 	}
