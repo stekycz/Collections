@@ -11,7 +11,7 @@ class Collections
 	/**
 	 * Transforms given array or set into ArraySet instance.
 	 *
-	 * @param array|\stekycz\collections\ArraySet $items
+	 * @param array|\stekycz\collections\ICollection $items
 	 * @return \stekycz\collections\ArraySet
 	 * @throws \stekycz\collections\InvalidArgumentException
 	 */
@@ -19,7 +19,12 @@ class Collections
 	{
 		static::checkValidType($items);
 
-		return static::isArrayType($items) ? new ArraySet($items) : clone $items;
+		return static::isSetType($items)
+			? clone $items
+			: (static::isCollection($items)
+				? new ArraySet($items->toArray())
+				: new ArraySet($items)
+			);
 	}
 
 
@@ -62,7 +67,7 @@ class Collections
 	 * @param \stekycz\collections\ICollection $collection
 	 * @return bool
 	 */
-	private static function isCollection($collection)
+	public static function isCollection($collection)
 	{
 		return ($collection instanceof ICollection);
 	}
@@ -75,7 +80,7 @@ class Collections
 	 * @param \stekycz\collections\ArraySet $set
 	 * @return bool
 	 */
-	private static function isSetType($set)
+	public static function isSetType($set)
 	{
 		return ($set instanceof ArraySet);
 	}

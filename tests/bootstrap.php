@@ -5,7 +5,7 @@ define('LIBS_DIR', TEST_DIR . '/../vendor');
 
 // Composer autoloading
 $autoloader = require_once LIBS_DIR . '/autoload.php';
-$autoloader->add("", TEST_DIR);
+require_once TEST_DIR . "/DummyCollection.php";
 
 function run(Tester\TestCase $testCase)
 {
