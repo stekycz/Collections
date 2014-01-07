@@ -1,4 +1,4 @@
-# Collections
+# Collections [![Build Status](https://travis-ci.org/stekycz/Collections.png?branch=master)](https://travis-ci.org/stekycz/Collections)
 
 - [Description](#description)
 - [Author](#author)
