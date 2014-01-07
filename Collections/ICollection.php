@@ -94,21 +94,21 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 *
 	 * @return int
 	 */
-	public function count();
+	// public function count();
 
 	/**
 	 * Returns iterator over items in collection.
 	 *
 	 * @return \Iterator
 	 */
-	public function getIterator();
+	// public function getIterator();
 
 	/**
 	 * Should return the string representation of the object.
 	 *
 	 * @return string
 	 */
-	public function serialize();
+	// public function serialize();
 
 	/**
 	 * Called during unserialization of the object.
@@ -116,6 +116,6 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 * @param string $serialized
 	 * @return void
 	 */
-	public function unserialize($serialized);
+	// public function unserialize($serialized);
 
 }
