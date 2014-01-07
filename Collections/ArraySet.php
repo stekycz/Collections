@@ -4,10 +4,13 @@ namespace stekycz\collections;
 
 use ArrayIterator;
 
+
+
 /**
  * Represents collection of values.
  */
-class ArraySet implements ICollection {
+class ArraySet implements ICollection
+{
 
 	/**
 	 * Array of all values in collection.
@@ -16,15 +19,20 @@ class ArraySet implements ICollection {
 	 */
 	private $items = array();
 
+
+
 	/**
 	 * Creates new collection.
 	 *
 	 * @param array|\stekycz\collections\ArraySet $items
 	 */
-	public function __construct($items = array()) {
+	public function __construct($items = array())
+	{
 		$this->clear();
 		$this->addAll($items);
 	}
+
+
 
 	/**
 	 * Adds given item into collection.
@@ -32,12 +40,16 @@ class ArraySet implements ICollection {
 	 * @param mixed $item
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function add($item) {
+	public function add($item)
+	{
 		if (!$this->contains($item)) {
 			$this->items[] = $item;
 		}
+
 		return $this;
 	}
+
+
 
 	/**
 	 * Adds all given items into collection.
@@ -45,22 +57,30 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function addAll($items) {
+	public function addAll($items)
+	{
 		Collections::checkValidType($items);
 		$items = Collections::isArrayType($items) ? $items : $items->items;
 		$this->items = array_unique(array_merge($this->items, $items));
+
 		return $this;
 	}
+
+
 
 	/**
 	 * Cleans collection.
 	 *
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function clear() {
+	public function clear()
+	{
 		$this->items = array();
+
 		return $this;
 	}
+
+
 
 	/**
 	 * Checks if given item is in collection.
@@ -68,9 +88,12 @@ class ArraySet implements ICollection {
 	 * @param mixed $item
 	 * @return bool
 	 */
-	public function contains($item) {
+	public function contains($item)
+	{
 		return in_array($item, $this->items);
 	}
+
+
 
 	/**
 	 * Checks if all given items are in collection.
@@ -78,11 +101,15 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return bool
 	 */
-	public function containsAll($items) {
+	public function containsAll($items)
+	{
 		$items = Collections::toSet($items);
 		$difference = array_diff($items->items, $this->items);
+
 		return empty($difference);
 	}
+
+
 
 	/**
 	 * Checks if given collection is equal to current collection.
@@ -90,23 +117,30 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $collection
 	 * @return bool
 	 */
-	public function equals($collection) {
+	public function equals($collection)
+	{
 		try {
 			$collection = Collections::toSet($collection);
 		} catch (InvalidArgumentException $e) {
-			return false;
+			return FALSE;
 		}
+
 		return $this->containsAll($collection) && $collection->containsAll($this);
 	}
+
+
 
 	/**
 	 * Checks if collection is empty.
 	 *
 	 * @return bool
 	 */
-	public function isEmpty() {
+	public function isEmpty()
+	{
 		return empty($this->items);
 	}
+
+
 
 	/**
 	 * Removes given item from collection.
@@ -114,13 +148,17 @@ class ArraySet implements ICollection {
 	 * @param mixed $item
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function remove($item) {
+	public function remove($item)
+	{
 		$index = array_search($item, $this->items);
-		if ($index !== false) {
+		if ($index !== FALSE) {
 			unset($this->items[$index]);
 		}
+
 		return $this;
 	}
+
+
 
 	/**
 	 * Removes all given items from collection.
@@ -128,11 +166,15 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function removeAll($items) {
+	public function removeAll($items)
+	{
 		$items = Collections::toSet($items);
 		$this->items = array_diff($this->items, $items->items);
+
 		return $this;
 	}
+
+
 
 	/**
 	 * Retains all items in the collection which are in given collection.
@@ -140,47 +182,64 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function retainAll($items) {
+	public function retainAll($items)
+	{
 		Collections::checkValidType($items);
+
 		return $this->removeAll($this->exclusiveOr($items));
 	}
+
+
 
 	/**
 	 * Returns items in collection as array.
 	 *
 	 * @return array
 	 */
-	public function toArray() {
+	public function toArray()
+	{
 		$array = $this->items;
+
 		return $array;
 	}
+
+
 
 	/**
 	 * Returns count of items in collection.
 	 *
 	 * @return int
 	 */
-	public function count() {
+	public function count()
+	{
 		return count($this->items);
 	}
+
+
 
 	/**
 	 * Returns iterator over items in collection.
 	 *
 	 * @return \Iterator
 	 */
-	public function getIterator() {
+	public function getIterator()
+	{
 		return new ArrayIterator($this->items);
 	}
+
+
 
 	/**
 	 * Should return the string representation of the object.
 	 *
 	 * @return string
 	 */
-	public function serialize() {
+	public function serialize()
+	{
 		return serialize($this->items);
 	}
+
+
 
 	/**
 	 * Called during unserialization of the object.
@@ -188,7 +247,8 @@ class ArraySet implements ICollection {
 	 * @param string $serialized
 	 * @return void
 	 */
-	public function unserialize($serialized) {
+	public function unserialize($serialized)
+	{
 		$this->items = unserialize($serialized);
 	}
 
@@ -201,10 +261,14 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function intersect($items) {
+	public function intersect($items)
+	{
 		$items = Collections::toSet($items);
+
 		return Collections::toSet(array_intersect($this->items, $items->items));
 	}
+
+
 
 	/**
 	 * Returns result of XOR function on given collection and current collection.
@@ -213,8 +277,10 @@ class ArraySet implements ICollection {
 	 * @param array|\stekycz\collections\ArraySet $items
 	 * @return \stekycz\collections\ArraySet
 	 */
-	public function exclusiveOr($items) {
+	public function exclusiveOr($items)
+	{
 		$items = Collections::toSet($items);
+
 		return Collections::toSet(array_merge(array_diff($this->items, $items->items), array_diff($items->items, $this->items)));
 	}
 

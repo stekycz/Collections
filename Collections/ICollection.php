@@ -6,7 +6,10 @@ use Countable;
 use Serializable;
 use IteratorAggregate;
 
-interface ICollection extends Countable, IteratorAggregate, Serializable {
+
+
+interface ICollection extends Countable, IteratorAggregate, Serializable
+{
 
 	// Java inspiration functions
 
@@ -18,6 +21,8 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	public function add($item);
 
+
+
 	/**
 	 * Adds all given items into collection.
 	 *
@@ -26,12 +31,16 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	public function addAll($items);
 
+
+
 	/**
 	 * Cleans collection.
 	 *
 	 * @return \stekycz\collections\ICollection
 	 */
 	public function clear();
+
+
 
 	/**
 	 * Checks if given item is in collection.
@@ -41,6 +50,8 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	public function contains($item);
 
+
+
 	/**
 	 * Checks if all given items are in collection.
 	 *
@@ -48,6 +59,8 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 * @return bool
 	 */
 	public function containsAll($items);
+
+
 
 	/**
 	 * Checks if given collection is equal to current collection.
@@ -57,12 +70,16 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	public function equals($collection);
 
+
+
 	/**
 	 * Checks if collection is empty.
 	 *
 	 * @return bool
 	 */
 	public function isEmpty();
+
+
 
 	/**
 	 * Removes given item from collection.
@@ -72,6 +89,8 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	public function remove($item);
 
+
+
 	/**
 	 * Removes all given items from collection.
 	 *
@@ -79,6 +98,8 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 * @return \stekycz\collections\ICollection
 	 */
 	public function removeAll($items);
+
+
 
 	/**
 	 * Returns items in collection as array.
@@ -96,6 +117,8 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	// public function count();
 
+
+
 	/**
 	 * Returns iterator over items in collection.
 	 *
@@ -103,12 +126,16 @@ interface ICollection extends Countable, IteratorAggregate, Serializable {
 	 */
 	// public function getIterator();
 
+
+
 	/**
 	 * Should return the string representation of the object.
 	 *
 	 * @return string
 	 */
 	// public function serialize();
+
+
 
 	/**
 	 * Called during unserialization of the object.

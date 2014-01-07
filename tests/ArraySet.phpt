@@ -9,30 +9,43 @@ use Tester\TestCase;
 
 require_once __DIR__ . "/bootstrap.php";
 
+
+
 /**
  * Tests for ArraySet class.
  */
-class ArraySetTest extends TestCase {
+class ArraySetTest extends TestCase
+{
 
-	public function testCreatesEmptySetByDefault() {
+	public function testCreatesEmptySetByDefault()
+	{
 		$set = new ArraySet();
 		Assert::true($set->isEmpty());
 	}
 
-	public function testCreatesSetFromArray() {
+
+
+	public function testCreatesSetFromArray()
+	{
 		$set = new ArraySet(array('test 1', 'test 2', 'test 1',));
 		Assert::false($set->isEmpty());
 		Assert::equal(2, $set->count());
 	}
 
-	public function testAddsOneItem() {
+
+
+	public function testAddsOneItem()
+	{
 		$set = new ArraySet();
 		$set->add('test');
 		Assert::false($set->isEmpty());
 		Assert::equal(1, $set->count());
 	}
 
-	public function testAddingOneItemAsDuplicateDoesNotChangeSet() {
+
+
+	public function testAddingOneItemAsDuplicateDoesNotChangeSet()
+	{
 		$set = new ArraySet();
 		$set->add('test');
 		Assert::false($set->isEmpty());
@@ -42,22 +55,31 @@ class ArraySetTest extends TestCase {
 		Assert::equal(1, $set->count());
 	}
 
-	public function testReturnsIterator() {
+
+
+	public function testReturnsIterator()
+	{
 		$set = new ArraySet(array('test 1', 'test 2', 'test 1',));
 		Assert::type('\Iterator', $set->getIterator());
 	}
 
-	public function testIsAbleToClearItself() {
+
+
+	public function testIsAbleToClearItself()
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 		Assert::false($set->isEmpty());
 		$set->clear();
 		Assert::true($set->isEmpty());
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForArrayReturnChecking
 	 */
-	public function testIsAbleToReturnItemsAsArray($items) {
+	public function testIsAbleToReturnItemsAsArray($items)
+	{
 		$set = new ArraySet($items);
 		Assert::equal(count(array_unique($items)), $set->count());
 		$array = $set->toArray();
@@ -65,69 +87,93 @@ class ArraySetTest extends TestCase {
 		Assert::equal($items, $array);
 	}
 
-	public function providesDataForArrayReturnChecking() {
+
+
+	public function providesDataForArrayReturnChecking()
+	{
 		return array(
 			array(array()),
 			array(array('test 1', 'test 2',)),
 		);
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForContainsChecking
 	 */
-	public function testChecksIfContainsGivenItem($expected, $item) {
+	public function testChecksIfContainsGivenItem($expected, $item)
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 		Assert::equal($expected, $set->contains($item));
 	}
 
-	public function providesDataForContainsChecking() {
+
+
+	public function providesDataForContainsChecking()
+	{
 		return array(
-			array(true, 'test 1'),
-			array(true, 'test 2'),
-			array(false, 'test 3'),
-			array(false, null),
+			array(TRUE, 'test 1'),
+			array(TRUE, 'test 2'),
+			array(FALSE, 'test 3'),
+			array(FALSE, NULL),
 		);
 	}
+
+
 
 	/**
 	 * @dataProvider providesDataForContainsAllChecking
 	 */
-	public function testChecksIfContainsAllGivenItems($expected, $items) {
+	public function testChecksIfContainsAllGivenItems($expected, $items)
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 		Assert::equal($expected, $set->containsAll($items));
 	}
 
-	public function providesDataForContainsAllChecking() {
+
+
+	public function providesDataForContainsAllChecking()
+	{
 		return array(
-			array(true, array('test 1',)),
-			array(true, array('test 2',)),
-			array(true, array('test 1', 'test 2',)),
-			array(false, array('test 3',)),
-			array(false, array('test 1', 'test 2', 'test 3',)),
-			array(true, array()),
+			array(TRUE, array('test 1',)),
+			array(TRUE, array('test 2',)),
+			array(TRUE, array('test 1', 'test 2',)),
+			array(FALSE, array('test 3',)),
+			array(FALSE, array('test 1', 'test 2', 'test 3',)),
+			array(TRUE, array()),
 		);
 	}
+
+
 
 	/**
 	 * @dataProvider providesDataForEqualsChecking
 	 */
-	public function testComparesTwoSetsToBeEqual($expected, $items) {
+	public function testComparesTwoSetsToBeEqual($expected, $items)
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 		Assert::equal($expected, $set->equals($items));
 	}
 
-	public function providesDataForEqualsChecking() {
+
+
+	public function providesDataForEqualsChecking()
+	{
 		return array(
-			array(true, array('test 1', 'test 2',)),
-			array(false, array()),
-			array(false, array('test 1',)),
-			array(false, array('test 2',)),
-			array(false, array('test 3',)),
-			array(false, array('test 1', 'test 2', 'test 3',)),
+			array(TRUE, array('test 1', 'test 2',)),
+			array(FALSE, array()),
+			array(FALSE, array('test 1',)),
+			array(FALSE, array('test 2',)),
+			array(FALSE, array('test 3',)),
+			array(FALSE, array('test 1', 'test 2', 'test 3',)),
 		);
 	}
 
-	public function testRemovesOneItem() {
+
+
+	public function testRemovesOneItem()
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 		Assert::equal(2, $set->count());
 		$set->remove('test 1');
@@ -138,16 +184,22 @@ class ArraySetTest extends TestCase {
 		Assert::true($set->isEmpty());
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForAddingAllItems
 	 */
-	public function testAddsAllGivenItems($items) {
+	public function testAddsAllGivenItems($items)
+	{
 		$set = new ArraySet();
 		$set->addAll($items);
 		Assert::true($set->containsAll($items));
 	}
 
-	public function providesDataForAddingAllItems() {
+
+
+	public function providesDataForAddingAllItems()
+	{
 		return array(
 			array(array()),
 			array(array('test 1', 'test 2',)),
@@ -155,16 +207,22 @@ class ArraySetTest extends TestCase {
 		);
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForRemovingAllItems
 	 */
-	public function testRemovesAllGivenItems($expectedRetained, $items) {
+	public function testRemovesAllGivenItems($expectedRetained, $items)
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 		$set->removeAll($items);
 		Assert::true($set->containsAll($expectedRetained));
 	}
 
-	public function providesDataForRemovingAllItems() {
+
+
+	public function providesDataForRemovingAllItems()
+	{
 		return array(
 			array(array('test 1', 'test 2',), array()),
 			array(array(), array('test 1', 'test 2',)),
@@ -173,7 +231,10 @@ class ArraySetTest extends TestCase {
 		);
 	}
 
-	public function testIsSerializable() {
+
+
+	public function testIsSerializable()
+	{
 		$set = new ArraySet(array('test 1', 'test 2',));
 
 		$serialized = serialize($set);
@@ -183,16 +244,22 @@ class ArraySetTest extends TestCase {
 		Assert::equal($set, $unserialized);
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForIntersection
 	 */
-	public function testProvidesIntersection($expected, $items1, $items2) {
+	public function testProvidesIntersection($expected, $items1, $items2)
+	{
 		$set1 = new ArraySet($items1);
 		$set2 = new ArraySet($items2);
 		Assert::true($set1->intersect($set2)->equals($expected));
 	}
 
-	public function providesDataForIntersection() {
+
+
+	public function providesDataForIntersection()
+	{
 		return array(
 			array(array(), array('test 1',), array('test 2',)),
 			array(array(), array(), array()),
@@ -201,16 +268,22 @@ class ArraySetTest extends TestCase {
 		);
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForExclusiveOr
 	 */
-	public function testProvidesExclusiveOr($expected, $items1, $items2) {
+	public function testProvidesExclusiveOr($expected, $items1, $items2)
+	{
 		$set1 = new ArraySet($items1);
 		$set2 = new ArraySet($items2);
 		Assert::true($set1->exclusiveOr($set2)->equals($expected));
 	}
 
-	public function providesDataForExclusiveOr() {
+
+
+	public function providesDataForExclusiveOr()
+	{
 		return array(
 			array(array('test 1', 'test 2',), array('test 1',), array('test 2',)),
 			array(array(), array(), array()),
@@ -219,15 +292,21 @@ class ArraySetTest extends TestCase {
 		);
 	}
 
+
+
 	/**
 	 * @dataProvider providesDataForRetainingAllItems
 	 */
-	public function testIsAbleToRetainAllGivenItems($expected, $retainItems, $items) {
+	public function testIsAbleToRetainAllGivenItems($expected, $retainItems, $items)
+	{
 		$set = new ArraySet($items);
 		Assert::true($set->retainAll($retainItems)->equals($expected));
 	}
 
-	public function providesDataForRetainingAllItems() {
+
+
+	public function providesDataForRetainingAllItems()
+	{
 		return array(
 			array(array('test 1',), array('test 1',), array('test 1', 'test 2',)),
 			array(array(), array(), array('test 1', 'test 2',)),
@@ -237,88 +316,115 @@ class ArraySetTest extends TestCase {
 		);
 	}
 
+
+
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToConstructor($items) {
+	public function testThrowsExceptionWhenInvalidArgumentGivenToConstructor($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
+
+
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToAddAll($items) {
+	public function testThrowsExceptionWhenInvalidArgumentGivenToAddAll($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet();
 			$set->addAll($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
+
+
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToContainsAll($items) {
+	public function testThrowsExceptionWhenInvalidArgumentGivenToContainsAll($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet();
 			$set->containsAll($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
-	/**
-	 * @dataProvider providesWrongData
-	 */
-	public function testReturnsFalseWhenInvalidArgumentGivenToEquals($items) {
-		$set = new ArraySet();
-		Assert::false($set->equals($items));
-	}
+
 
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToRemoveAll($items) {
+	public function testReturnsFalseWhenInvalidArgumentGivenToEquals($items)
+	{
+		$set = new ArraySet();
+		Assert::false($set->equals($items));
+	}
+
+
+
+	/**
+	 * @dataProvider providesWrongData
+	 */
+	public function testThrowsExceptionWhenInvalidArgumentGivenToRemoveAll($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet();
 			$set->removeAll($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
+
+
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToRetainAll($items) {
+	public function testThrowsExceptionWhenInvalidArgumentGivenToRetainAll($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet();
 			$set->retainAll($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
+
+
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToIntersect($items) {
+	public function testThrowsExceptionWhenInvalidArgumentGivenToIntersect($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet();
 			$set->intersect($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
+
+
 	/**
 	 * @dataProvider providesWrongData
 	 */
-	public function testThrowsExceptionWhenInvalidArgumentGivenToExclusiveOr($items) {
+	public function testThrowsExceptionWhenInvalidArgumentGivenToExclusiveOr($items)
+	{
 		Assert::exception(function () use ($items) {
 			$set = new ArraySet();
 			$set->exclusiveOr($items);
 		}, '\stekycz\collections\InvalidArgumentException');
 	}
 
-	public function providesWrongData() {
+
+
+	public function providesWrongData()
+	{
 		return array(
-			array(null),
-			array(true),
-			array(false),
+			array(NULL),
+			array(TRUE),
+			array(FALSE),
 			array(1),
 			array(2.3),
 			array("string"),

@@ -1,22 +1,22 @@
 {
-    "name": "stekycz/collections",
-    "description": "Basic collections for PHP using arrays",
+	"name": "stekycz/collections",
+	"description": "Basic collections for PHP using arrays",
 	"keywords": ["collection", "array", "set"],
 	"version": "dev-0.6.0",
 	"license": "MIT",
-    "authors": [
-        {
-            "name": "Martin Štekl",
-            "email": "martin.stekl@gmail.com",
-            "role": "Developer"
-        }
-    ],
+	"authors": [
+		{
+			"name": "Martin Štekl",
+			"email": "martin.stekl@gmail.com",
+			"role": "Developer"
+		}
+	],
 	"autoload": {
 		"classmap": ["Collections/"]
 	},
-    "require": {
-	    "php": ">=5.3.3"
-    },
+	"require": {
+		"php": ">=5.3.3"
+	},
 	"require-dev": {
 		"nette/tester": "~0.9.0"
 	}
