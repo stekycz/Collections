@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @testCase
+ */
+
 namespace stekycz\collections\tests;
 
 use stdClass;
