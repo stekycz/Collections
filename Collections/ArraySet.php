@@ -61,7 +61,7 @@ class ArraySet implements ICollection
 	{
 		Collections::checkValidType($items);
 		$items = Collections::isArrayType($items) ? $items : $items->items;
-		$this->items = array_unique(array_merge($this->items, $items));
+		$this->items = array_unique(array_merge($this->items, array_values($items)));
 
 		return $this;
 	}

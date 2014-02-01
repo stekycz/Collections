@@ -88,7 +88,9 @@ class ArraySetTest extends TestCase
 		Assert::equal(count(array_unique($items)), $set->count());
 		$array = $set->toArray();
 		Assert::true(is_array($array));
-		Assert::equal($items, $array);
+		// There is no need to preserve keys in set
+		Assert::equal(array_values($items), array_values($array));
+		Assert::equal(array_keys(array_values($items)), array_keys($array));
 	}
 
 
@@ -98,6 +100,7 @@ class ArraySetTest extends TestCase
 		return array(
 			array(array()),
 			array(array('test 1', 'test 2',)),
+			array(array('a' => 'test 1', 2 => 'test 2',)),
 		);
 	}
 
