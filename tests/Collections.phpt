@@ -7,6 +7,7 @@
 namespace stekycz\collections\tests;
 
 use stdClass;
+use stekycz\collections\ArrayObject;
 use stekycz\collections\ArraySet;
 use stekycz\collections\Collections;
 use Tester\Assert;
@@ -38,6 +39,7 @@ class CollectionsTest extends TestCase
 			array(array(), TRUE),
 			array(array(1, 2, 3), TRUE),
 			array(new ArraySet(), FALSE),
+			array(new ArrayObject(), FALSE),
 			array(new DummyCollection(), FALSE),
 			array(NULL, FALSE),
 			array(TRUE, FALSE),
@@ -65,6 +67,7 @@ class CollectionsTest extends TestCase
 	{
 		return array(
 			array(new ArraySet(), TRUE),
+			array(new ArrayObject(), TRUE),
 			array(new DummyCollection(), TRUE),
 			array(array(), FALSE),
 			array(array(1, 2, 3), FALSE),
@@ -94,6 +97,37 @@ class CollectionsTest extends TestCase
 	{
 		return array(
 			array(new ArraySet(), TRUE),
+			array(new ArrayObject(), FALSE),
+			array(new DummyCollection(), FALSE),
+			array(array(), FALSE),
+			array(array(1, 2, 3), FALSE),
+			array(NULL, FALSE),
+			array(TRUE, FALSE),
+			array(FALSE, FALSE),
+			array(1, FALSE),
+			array(2.3, FALSE),
+			array("string", FALSE),
+			array(new stdClass(), FALSE),
+		);
+	}
+
+
+
+	/**
+	 * @dataProvider providesIsArrayObjectTypeData
+	 */
+	public function testIsArrayObjectType($items, $expected)
+	{
+		Assert::equal($expected, Collections::isArrayObjectType($items));
+	}
+
+
+
+	public function providesIsArrayObjectTypeData()
+	{
+		return array(
+			array(new ArraySet(), FALSE),
+			array(new ArrayObject(), TRUE),
 			array(new DummyCollection(), FALSE),
 			array(array(), FALSE),
 			array(array(1, 2, 3), FALSE),
@@ -125,6 +159,7 @@ class CollectionsTest extends TestCase
 			array(array()),
 			array(array(1, 2, 3)),
 			array(new ArraySet()),
+			array(new ArrayObject()),
 			array(new DummyCollection()),
 		);
 	}
@@ -175,6 +210,7 @@ class CollectionsTest extends TestCase
 			array(array()),
 			array(array(1, 2, 3)),
 			array(new ArraySet()),
+			array(new ArrayObject()),
 			array(new DummyCollection()),
 		);
 	}
@@ -194,6 +230,57 @@ class CollectionsTest extends TestCase
 
 
 	public function providesToSetDataWrong()
+	{
+		return array(
+			array(NULL),
+			array(TRUE),
+			array(FALSE),
+			array(1),
+			array(2.3),
+			array("string"),
+			array(new stdClass()),
+		);
+	}
+
+
+
+	/**
+	 * @dataProvider providesToArrayObjectDataOk
+	 */
+	public function testToArrayObjectOk($data)
+	{
+		$set = Collections::toArrayObject($data);
+		Assert::type('\stekycz\collections\ArrayObject', $set);
+	}
+
+
+
+	public function providesToArrayObjectDataOk()
+	{
+		return array(
+			array(array()),
+			array(array(1, 2, 3)),
+			array(new ArraySet()),
+			array(new ArrayObject()),
+			array(new DummyCollection()),
+		);
+	}
+
+
+
+	/**
+	 * @dataProvider providesToArrayObjectDataWrong
+	 */
+	public function testToArrayObjectException($data)
+	{
+		Assert::exception(function () use ($data) {
+			$array = Collections::toArrayObject($data);
+		}, '\stekycz\collections\InvalidArgumentException');
+	}
+
+
+
+	public function providesToArrayObjectDataWrong()
 	{
 		return array(
 			array(NULL),

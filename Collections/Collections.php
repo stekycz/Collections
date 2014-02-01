@@ -29,6 +29,20 @@ class Collections
 
 
 
+	public static function toArrayObject($items)
+	{
+		static::checkValidType($items);
+
+		return static::isArrayObjectType($items)
+			? clone $items
+			: (static::isCollection($items)
+				? new ArrayObject($items->toArray())
+				: new ArrayObject($items)
+			);
+	}
+
+
+
 	/**
 	 * Checks if given items are in array or instance of ArraySet.
 	 *
@@ -83,6 +97,19 @@ class Collections
 	public static function isSetType($set)
 	{
 		return ($set instanceof ArraySet);
+	}
+
+
+
+	/**
+	 * Checks if given set is instance of ArrayObject.
+	 *
+	 * @param \stekycz\collections\ArrayObject $array
+	 * @return bool
+	 */
+	public static function isArrayObjectType($array)
+	{
+		return ($array instanceof ArrayObject);
 	}
 
 }
