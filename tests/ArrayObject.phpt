@@ -294,6 +294,15 @@ class ArrayObjectTest extends TestCase
 
 
 
+	public function testCanBeShuffled()
+	{
+		$array = new ArrayObject(array(1, 2, 3, 2));
+		$shuffled = $array->shuffle();
+		Assert::equal(4, $shuffled->count());
+	}
+
+
+
 	public function testCanBeIteratedByMethodEach()
 	{
 		$array = new ArrayObject(array(1, 2, 3));

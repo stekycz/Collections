@@ -249,6 +249,21 @@ class ArrayObject implements ICollection, \ArrayAccess
 
 
 	/**
+	 * @return \stekycz\collections\ArrayObject
+	 */
+	public function shuffle()
+	{
+		$array = $this->toArray();
+		if (shuffle($array)) {
+			return new self($array);
+		}
+
+		throw new InvalidStateException("Array was not shuffled because of unknown cause.");
+	}
+
+
+
+	/**
 	 * @param callable($value, $key) $callback
 	 * @return \stekycz\collections\ArrayObject
 	 */
