@@ -46,7 +46,7 @@ class ArrayObject implements ICollection, \ArrayAccess
 	{
 		Collections::checkValidType($items);
 		$items = Collections::isArrayType($items) ? $items : $items->toArray();
-		$this->items = array_combine(array_merge(array_keys($this->items), array_keys($items)), array_merge($this->items, $items));
+		$this->items = array_merge($this->items, $items);
 
 		return $this;
 	}

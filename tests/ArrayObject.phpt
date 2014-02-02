@@ -82,14 +82,14 @@ class ArrayObjectTest extends TestCase
 	/**
 	 * @dataProvider providesDataForArrayReturnChecking
 	 */
-	public function testIsAbleToReturnItemsAsArray($items)
+	public function testIsAbleToReturnItemsAsArray($items, $keys)
 	{
 		$arrayObject = new ArrayObject($items);
 		Assert::equal(count($items), $arrayObject->count());
 		$array = $arrayObject->toArray();
 		Assert::true(is_array($array));
 		Assert::equal(array_values($items), array_values($array));
-		Assert::equal(array_keys($items), array_keys($array));
+		Assert::equal($keys, array_keys($array));
 	}
 
 
@@ -97,9 +97,9 @@ class ArrayObjectTest extends TestCase
 	public function providesDataForArrayReturnChecking()
 	{
 		return array(
-			//	array(array()),
-			//	array(array('test 1', 'test 2',)),
-			array(array('a' => 'test 1', 2 => 'test 2',)),
+			array(array(), array()),
+			array(array('test 1', 'test 2',), array(0, 1)),
+			array(array('a' => 'test 1', 2 => 'test 2',), array('a', 0)),
 		);
 	}
 
@@ -258,7 +258,7 @@ class ArrayObjectTest extends TestCase
 		$filtered = $array->filter(function ($item) {
 			return is_int($item) || is_float($item);
 		});
-		Assert::equal(array(1 => 1, 2 => 2.1,), $filtered->toArray());
+		Assert::equal(array(0 => 1, 1 => 2.1,), $filtered->toArray());
 	}
 
 
@@ -310,7 +310,7 @@ class ArrayObjectTest extends TestCase
 	{
 		$array = new ArrayObject(array(3, 1, 2));
 		$reversed = $array->reverse();
-		Assert::equal(array(2 => 2, 1 => 1, 0 => 3), $reversed->toArray());
+		Assert::equal(array(0 => 2, 1 => 1, 2 => 3), $reversed->toArray());
 	}
 
 
@@ -319,7 +319,7 @@ class ArrayObjectTest extends TestCase
 	{
 		$array = new ArrayObject(array(1, 3, 2));
 		$sorted = $array->sort();
-		Assert::equal(array(0 => 1, 2 => 2, 1 => 3), $sorted->toArray());
+		Assert::equal(array(0 => 1, 1 => 2, 2 => 3), $sorted->toArray());
 	}
 
 
@@ -328,7 +328,7 @@ class ArrayObjectTest extends TestCase
 	{
 		$array = new ArrayObject(array(1, 3, 2));
 		$sorted = $array->sort(NULL, TRUE);
-		Assert::equal(array(1 => 3, 2 => 2, 0 => 1), $sorted->toArray());
+		Assert::equal(array(0 => 3, 1 => 2, 2 => 1), $sorted->toArray());
 	}
 
 
@@ -339,7 +339,7 @@ class ArrayObjectTest extends TestCase
 		$sorted = $array->sort(function ($a, $b) {
 			return $a - $b;
 		});
-		Assert::equal(array(0 => 1, 2 => 2, 1 => 3), $sorted->toArray());
+		Assert::equal(array(0 => 1, 1 => 2, 2 => 3), $sorted->toArray());
 	}
 
 
