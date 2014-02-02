@@ -9,7 +9,7 @@ class Collections
 {
 
 	/**
-	 * Transforms given array or set into ArraySet instance.
+	 * Transforms given array or collection into ArraySet instance.
 	 *
 	 * @param array|\stekycz\collections\ICollection $items
 	 * @return \stekycz\collections\ArraySet
@@ -29,6 +29,13 @@ class Collections
 
 
 
+	/**
+	 * Transforms given array or collection into ArrayObject instance.
+	 *
+	 * @param array|\stekycz\collections\ICollection $items
+	 * @return \stekycz\collections\ArrayObject
+	 * @throws \stekycz\collections\InvalidArgumentException
+	 */
 	public static function toArrayObject($items)
 	{
 		static::checkValidType($items);
